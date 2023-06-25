@@ -11,17 +11,17 @@ export const pool = new Pool({
   },
 });
 
-export default async function handler(req, res) {
-  const client = await pool.connect();
+// export default async function handler(req, res) {
+//   const client = await pool.connect();
 
-  try {
-    // Perform database operations using the client
-    const { rows } = await client.query('SELECT * FROM sellers');
-    res.status(200).json(rows);
-  } catch (error) {
-    console.error('Error executing query', error);
-    res.status(500).json({ error: 'An error occurred' });
-  } finally {
-    client.release(); // Release the connection
-  }
-}
+//   try {
+//     // Perform database operations using the client
+//     const { rows } = await client.query('SELECT * FROM sellers');
+//     res.status(200).json(rows);
+//   } catch (error) {
+//     console.error('Error executing query', error);
+//     res.status(500).json({ error: 'An error occurred' });
+//   } finally {
+//     client.release(); // Release the connection
+//   }
+// }
