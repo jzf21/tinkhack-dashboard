@@ -21,6 +21,6 @@
     "next-auth.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "components/DefaultLayout"  ],
+, "components/DefaultLayout", "pages/api/auth/[...nextauth].js"  ],
   "exclude": ["node_modules"]
 }
