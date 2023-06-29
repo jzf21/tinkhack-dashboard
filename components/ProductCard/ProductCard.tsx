@@ -17,10 +17,10 @@ const ProductCard = (props: Props) => {
       
       <div className="">
         <h1 className="text-lg font-semibold text-center">{props.title}</h1>
-        <p className="text-sm text-gray-500">Description:{props.description}</p>
+        
         <p className="text-sm text-gray-500">Size:{props.size}</p>
         <p className="text-sm text-gray-500">Quantity:{props.quantity}</p>
-        <p className="text-sm text-gray-500">Rating:{props.rating}</p>
+       
         <p className="text-sm text-gray-500">Price:{props.price}</p>
         <p className="text-sm text-gray-500">Seller:{props.name}</p>
         

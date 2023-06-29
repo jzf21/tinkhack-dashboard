@@ -12,6 +12,7 @@ interface Product {
   image: string;
   rating: number;
   description: string;
+  name: string;
 
   // Add more properties as per your schema
 }
