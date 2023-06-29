@@ -7,10 +7,11 @@ interface ProductFormProps {
 }
 
 interface FormData {
-  sellerEmail: string;
+  
   productName: string;
   quantity: number;
   category: string;
+  price: number;
   size: string;
   imageLink: string;
 }
@@ -21,9 +22,10 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit }) => {
   const [showForm, setShowForm] = useState<boolean>(false);
 
   const [formData, setFormData] = useState<FormData>({
-    sellerEmail: emailid,
+   
     productName: "",
     quantity: 0,
+    price:0,
     category: "",
     size: "",
     imageLink: "",
@@ -40,25 +42,20 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit }) => {
     event.preventDefault();
     handleAPICall(formData);
   };
-   useEffect(() => {
-    if (sessionData?.user?.email) {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        sellerEmail: sessionData.user.email,
-      }));
-    }
-  }, [sessionData]);
+  
+ const handleAPICall = (formData: FormData) => {
+  axios
+    .post("/api/posts/insertproduct", formData, {
+      withCredentials: true,
+    })
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
 
-  const handleAPICall = (formData: FormData) => {
-    axios
-      .post("/api/posts/insertproduct", formData)
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
 
   const toggleForm = () => {
     setShowForm((prevShowForm) => !prevShowForm);
@@ -68,13 +65,13 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit }) => {
     <>
       <button
         onClick={toggleForm}
-        className="fixed bottom-4 right-4 p-4 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600"
+        className="fixed bottom-4 right-4 text-center  w-12 h-12 text-3xl bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600"
       >
         +
       </button>
     
       <div
-        className={`fixed top-0 right-0 h-screen w-1/3 transition-transform transform bg-white p-2   mt-16 ${
+        className={`fixed top-0 right-0  w-1/2 h-screen md:w-1/3 transition-transform transform bg-white px-4 pt-2   mt-16 ${
           showForm ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -88,6 +85,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit }) => {
         X
       </button>
   <div className="mb-4">
+    <h2 className="text-3xl font-semibold p-4">Add Product</h2>
     <label htmlFor="product_name" className="block text-gray-700 font-semibold">
       Product Name:
     </label>
@@ -131,7 +129,20 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit }) => {
       className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
     />
   </div>
-
+  <div className="mb-4">
+    <label htmlFor="price" className="block text-gray-700 font-semibold">
+      price:
+    </label>
+    <input
+      type="text"
+      id="price"
+      name="price"
+      value={formData.price}
+      onChange={handleChange}
+      required
+      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
+    />
+  </div>
   <div className="mb-4">
     <label htmlFor="size" className="block text-gray-700 font-semibold">
       Size:

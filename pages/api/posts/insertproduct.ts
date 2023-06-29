@@ -1,14 +1,24 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import { pool } from '../supabase';
+import { getToken } from 'next-auth/jwt';
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
+    const token = await getToken({ req });
+
     try {
       // Extract data from the request body
-      const { sellerEmail, productName, price,quantity,size } = req.body;
+      const {  productName, price,quantity,size } = req.body;
       console.log(req.body);
+       if (!token) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+
+    const email = token.email as string;
+
 
       // Get a database client from the pool
       const client = await pool.connect();
@@ -16,7 +26,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       try {
         // Retrieve the seller ID from the sellers table
         const query = 'SELECT id FROM sellers WHERE email = $1';
-        const values = [sellerEmail];
+        const values = [email];
         console.log(values[0]);
         const result = await client.query(query, values);
 
@@ -41,6 +51,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         console.error('Error executing query', error);
         res.status(500).json({ error: 'An error occurred' });
       } finally {
+        
         client.release(); // Release the connection
       }
     } catch (error) {

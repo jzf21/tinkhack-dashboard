@@ -44,11 +44,11 @@ const AllProducts = () => {
 
   return (
     <div>
-      <h1>My Products</h1>
+      <h1 className="text-3xl font-semibold p-4">My Products</h1>
       <div className="grid grid-cols-3 gap-4">
         {products.map((product) => (
           <div className="" key={product.id}>
-            <ProductCard title={product.title} price={product.price} />
+            <ProductCard {...product} />
             {/* Add more product details */}
           </div>
         ))}
@@ -58,7 +58,7 @@ const AllProducts = () => {
       <div className="grid grid-cols-3 gap-4">
         {allProducts.map((product) => (
           <div className="" key={product.id}>
-            <ProductCard title={product.title} price={product.price} />
+            <ProductCard {...product} />
             {/* Add more product details */}
           </div>
         ))}
