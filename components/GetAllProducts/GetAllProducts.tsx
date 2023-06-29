@@ -6,6 +6,13 @@ interface Product {
   id: string;
   title: string;
   price: number;
+  quantity: number;
+  category: string;
+  size: string;
+  image: string;
+  rating: number;
+  description: string;
+  
   // Add more properties as per your schema
 }
 
