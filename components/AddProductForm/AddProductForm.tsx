@@ -3,7 +3,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 
 interface ProductFormProps {
-  onSubmit: (formData: FormData) => void;
+  
 }
 
 interface FormData {
@@ -16,7 +16,7 @@ interface FormData {
   imageLink: string;
 }
 
-const ProductForm: React.FC<ProductFormProps> = ({ onSubmit }) => {
+const ProductForm: React.FC<ProductFormProps> = () => {
   const { data:sessionData } = useSession();
   const [emailid, setEmailid] = useState<string>('');
   const [showForm, setShowForm] = useState<boolean>(false);

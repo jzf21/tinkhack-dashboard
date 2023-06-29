@@ -4,7 +4,7 @@ import { SessionProvider, signIn, signOut, useSession } from "next-auth/react"
 import styles from "../header.module.css"
 import FloatingButton from '../FloatingButton/FloatingButton'
 import ProductForm from '../AddProductForm/AddProductForm'
-import AddProductForm from '../AddProducts'
+
 import { useRouter } from "next/router";
 type Props = {
     children: React.ReactNode
