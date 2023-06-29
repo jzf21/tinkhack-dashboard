@@ -18,7 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       try {
         // Retrieve all products from the products table
-        const query = 'SELECT * FROM products';
+        const query = 'SELECT *,name FROM products, sellers WHERE products.seller_id = sellers.id';
         const result = await client.query(query);
 
         // Send the retrieved products as the API response

@@ -8,6 +8,7 @@ type Props = {
   description: string,
   quantity: number,
   size: string,
+  name: string,
 };
 
 const ProductCard = (props: Props) => {
@@ -21,6 +22,7 @@ const ProductCard = (props: Props) => {
         <p className="text-sm text-gray-500">Quantity:{props.quantity}</p>
         <p className="text-sm text-gray-500">Rating:{props.rating}</p>
         <p className="text-sm text-gray-500">Price:{props.price}</p>
+        <p className="text-sm text-gray-500">Seller:{props.name}</p>
         
         
         {/* <p className="text-sm text-gray-500">{props.size}</p>
