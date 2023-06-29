@@ -6,10 +6,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'GET') {
     const token = await getToken({ req });
 
-    if (!token) {
-      res.status(401).json({ error: 'Unauthorized' });
-      return;
-    }
+    
 
     const email = token.email as string;
 
