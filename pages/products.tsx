@@ -1,9 +1,9 @@
 import React from 'react'
 import DefaultLayout from '../components/DefaultLayout/DefaultLayout'
-import ProductCard from '../components/ProductCard/ProductCard'
+
 import { useSession } from "next-auth/react"
 import AllProducts from '../components/GetAllProducts/GetAllProducts'
-import AddProductForm from '../components/AddProducts'
+
 
 type Props = {}
 
