@@ -45,7 +45,7 @@ const AllProducts = () => {
       }
     };
 
-    fetchProducts();
+    // fetchProducts();
     fetchAllProducts();
   }, []);
 
