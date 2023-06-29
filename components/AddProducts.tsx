@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useSession } from "next-auth/react";
+import { useSession } from "next-auth/react"
 
 interface ProductFormProps {
   onSubmit: (formData: FormData) => void;
@@ -15,31 +15,21 @@ interface FormData {
   imageLink: string;
 }
 
-const ProductForm: React.FC<ProductFormProps> = ({ onSubmit }) => {
-  const { data:sessionData } = useSession();
-  const [emailid, setEmailid] = useState<string>('');
-  const [showForm, setShowForm] = useState<boolean>(false);
+const AddProductForm: React.FC<ProductFormProps> = ({ onSubmit }) => {
 
+  const {data:sessionData} =useSession();
+  
+ 
+  const [emailid, setEmailid] = useState<string>(sessionData?.user?.email);
   const [formData, setFormData] = useState<FormData>({
-    sellerEmail: emailid,
+    sellerEmail: "",
     productName: "",
     quantity: 0,
     category: "",
     size: "",
     imageLink: "",
   });
-
-  const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = event.target;
-    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
-  };
-
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    handleAPICall(formData);
-  };
+ 
    useEffect(() => {
     if (sessionData?.user?.email) {
       setFormData((prevFormData) => ({
@@ -49,44 +39,35 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit }) => {
     }
   }, [sessionData]);
 
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+    console.log(formData);
+  };
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    console.log(formData);
+    handleAPICall(formData);
+  };
+
   const handleAPICall = (formData: FormData) => {
-    axios
-      .post("/api/posts/insertproduct", formData)
+    // Make an API call using axios or your preferred HTTP library
+    axios.post("/api/posts/insertproduct", formData)
       .then((response) => {
+        // Handle the response if needed
         console.log(response.data);
       })
       .catch((error) => {
+        // Handle the error if needed
         console.error(error);
       });
   };
 
-  const toggleForm = () => {
-    setShowForm((prevShowForm) => !prevShowForm);
-  };
-
   return (
-    <>
-      <button
-        onClick={toggleForm}
-        className="fixed bottom-4 right-4 p-4 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600"
-      >
-        +
-      </button>
-    
-      <div
-        className={`fixed top-0 right-0 h-screen w-1/3 transition-transform transform bg-white p-2   mt-16 ${
-          showForm ? "translate-x-0" : "translate-x-full"
-        }`}
-      >
- 
-        <form onSubmit={handleSubmit} className="max-w-md  ">
-                   <button
-                   
-        onClick={toggleForm}
-        className="fixed top-4 right-5 h-6 w-6  bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600"
-      >
-        X
-      </button>
+    <form onSubmit={handleSubmit} className="max-w-md  translate-x-[100px]">
   <div className="mb-4">
     <label htmlFor="product_name" className="block text-gray-700 font-semibold">
       Product Name:
@@ -169,9 +150,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit }) => {
     Add Product
   </button>
 </form>
-      </div>
-    </>
+
   );
 };
-
-export default ProductForm;
+export default AddProductForm;

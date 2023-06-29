@@ -1,18 +1,29 @@
 import React from 'react'
 import Link from "next/link"
-import { signIn, signOut, useSession } from "next-auth/react"
+import { SessionProvider, signIn, signOut, useSession } from "next-auth/react"
 import styles from "../header.module.css"
+import FloatingButton from '../FloatingButton/FloatingButton'
+import ProductForm from '../AddProductForm/AddProductForm'
+import AddProductForm from '../AddProducts'
+import { useRouter } from "next/router";
 type Props = {
     children: React.ReactNode
 }
 
 const DefaultLayout = (props: Props) => {
-   const { data: session, status } = useSession()
-  const loading = status === "loading"
+  
+  
+  const { data: session } = useSession();
+  const router = useRouter();
 
+   React.useEffect(() => {
+    if (!session) {
+      router.push("/auth/signin");
+    }
+  }, [session, router]);
     
   return (
-    <div>
+    <>
         
 <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
   <div className="px-3 py-3 lg:px-5 lg:pl-3">
@@ -201,8 +212,13 @@ const DefaultLayout = (props: Props) => {
       </div>
    </div>
 </div> */}
+<ProductForm/>
 
-    </div>
+
+
+
+
+    </>
   )
 }
 
