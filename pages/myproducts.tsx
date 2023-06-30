@@ -1,15 +1,23 @@
 import React from 'react'
 import DefaultLayout from '../components/DefaultLayout/DefaultLayout'
+
+import { useSession } from "next-auth/react"
+import AllProducts from '../components/GetAllProducts/GetAllProducts'
 import MyProducts from '../components/MyProducts/MyProducts'
-import { useSession } from 'next-auth/react'
+
 
 type Props = {}
 
-export default function myproducts({}: Props) {
-      const { data } = useSession()
+const products = (props: Props) => {
+  const { data } = useSession()
   return (
     <DefaultLayout>
-        <MyProducts/>
+
+        <div className=" w-full h-full">
+            <MyProducts/>
+            </div>
     </DefaultLayout>
   )
 }
+
+export default products

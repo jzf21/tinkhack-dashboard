@@ -39,7 +39,7 @@ const MyProducts = () => {
 
     fetchProducts();
    
-  }, [allProducts]);
+  }, []);
 
   return (
     <div>

@@ -20,6 +20,8 @@ const ProductForm: React.FC<ProductFormProps> = () => {
   const { data:sessionData } = useSession();
   const [emailid, setEmailid] = useState<string>('');
   const [showForm, setShowForm] = useState<boolean>(false);
+  const [disabled,setDisabled] = useState<boolean>(false);
+  const [sucess , setSucess] = useState<boolean>(false);
 
   const [formData, setFormData] = useState<FormData>({
    
@@ -50,6 +52,7 @@ const ProductForm: React.FC<ProductFormProps> = () => {
     })
     .then((response) => {
       console.log(response.data);
+      setDisabled(false)
     })
     .catch((error) => {
       console.error(error);
@@ -176,9 +179,12 @@ const ProductForm: React.FC<ProductFormProps> = () => {
   <button
     type="submit"
     className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+    disabled={disabled}
   >
     Add Product
   </button>
+  {disabled && <p className="text-red-500">Adding Product...</p>}
+  {sucess && <p className="text-green-500">Product Added</p>}
 </form>
       </div>
     </>
