@@ -53,6 +53,7 @@ const ProductForm: React.FC<ProductFormProps> = () => {
     .then((response) => {
       console.log(response.data);
       setDisabled(false)
+      setSucess(true)
     })
     .catch((error) => {
       console.error(error);

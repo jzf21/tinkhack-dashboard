@@ -21,7 +21,7 @@ interface Product {
 const MyProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [allProducts, setAllProducts] = useState<Product[]>([]);
-  const {data} = useSession() 
+  
   
   useEffect(() => {
     const fetchProducts = async () => {
