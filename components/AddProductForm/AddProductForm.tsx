@@ -39,15 +39,33 @@ const ProductForm: React.FC<ProductFormProps> = () => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
+  const [imageBase64, setImageBase64] = useState<string >("");
 
-  const handleSubmit = (event: React.FormEvent) => {
+ const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const file = event.target.files?.[0];
+  if (file) {
+    // Read the file and convert it to Base64
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const base64String = reader.result as string;
+      const base64Data = base64String.split(",")[1]; // Remove the data:image/...;base64, part
+      setImageBase64(base64Data);
+    };
+    reader.readAsDataURL(file);
+  }
+};
+const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    handleAPICall(formData);
+
+    // Include the Base64 image data in the form data
+    const formDataWithImage = { ...formData, imageLink: imageBase64 };
+
+    handleAPICall(formDataWithImage);
   };
   
  const handleAPICall = (formData: FormData) => {
   axios
-    .post("/api/posts/insertproduct", formData, {
+    .post("/api/posts/inserimage", formData, {
       withCredentials: true,
     })
     .then((response) => {
@@ -75,12 +93,12 @@ const ProductForm: React.FC<ProductFormProps> = () => {
       </button>
     
       <div
-        className={`fixed top-0 right-0  w-1/2 h-screen md:w-1/3 transition-transform transform bg-white px-4 pt-2   mt-16 ${
+        className={`fixed top-0 right-0  w-1/2 h-screen md:w-1/3 transition-transform transform  bg-white px-4 pt-2   mt-16 ${
           showForm ? "translate-x-0" : "translate-x-full"
         }`}
       >
  
-        <form onSubmit={handleSubmit} className="max-w-md  ">
+        <form onSubmit={handleSubmit} className="max-w-md   ">
                    <button
                    
         onClick={toggleForm}
@@ -89,7 +107,7 @@ const ProductForm: React.FC<ProductFormProps> = () => {
         X
       </button>
   <div className="mb-4">
-    <h2 className="text-3xl font-semibold p-4">Add Product</h2>
+    
     <label htmlFor="product_name" className="block text-gray-700 font-semibold">
       Product Name:
     </label>
@@ -176,6 +194,24 @@ const ProductForm: React.FC<ProductFormProps> = () => {
       className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
     />
   </div>
+    <div className="mb-4">
+          <label htmlFor="image_file" className="block text-gray-700 font-semibold">
+            Upload Image:
+          </label>
+          <input
+            type="file"
+            id="image_file"
+            name="imageFile"
+            onChange={handleImageChange}
+            accept="image/*" // Allow only image files
+            required
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
+          />
+
+        </div>
+        
+     
+
 
   <button
     type="submit"

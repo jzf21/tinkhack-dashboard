@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
       // Extract data from the request body
       const { productName, price, quantity, size } = req.body;
-      const imageBase64 = req.body.image; // Assuming the image data is sent as "image" in the request body
+      const imageBase64 = req.body.imageLink; // Assuming the image data is sent as "image" in the request body
 
       if (!token) {
         res.status(401).json({ error: 'Unauthorized' });
