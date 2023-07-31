@@ -29,6 +29,7 @@ const ProductCard = (props: Props) => {
         <p className="text-sm text-gray-500">{props.quantity}</p>
         <p className="text-sm text-gray-500">{props.rating}</p>
         <p className="text-sm text-gray-500">{props.price}</p> */}
+        
       </div>
     </div>
 
