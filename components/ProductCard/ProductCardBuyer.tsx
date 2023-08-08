@@ -13,18 +13,20 @@ type Props = {
   imageUrl: string,
 };
 
-const ProductCard = (props: Props) => {
+const ProductCardBuyer = (props: Props) => {
   const supabaseurl=process.env.NEXT_PUBLIC_SUPABASE_URL
   return (
-    <div className="flex flex-col">
+    <div className="bg-white shadow-md rounded-md p-4">
       
       <div className="">
-    
-        <img src={props.imageUrl} alt="" className=" h-[300px] object-contain" />
-       <div className="flex flex-col">
-          <h1 className="text-lg text-gray-500 ">{props.title}</h1>
-        <p className="text-xl  text-gray-700">${props.price}</p>
-        </div>
+        <h1 className="text-lg font-semibold text-center">{props.title}</h1>
+        <img src={props.imageUrl} alt="" className="w-full h-48 object-contain" />
+        
+        <p className="text-sm text-gray-500">Size:{props.size}</p>
+        <p className="text-sm text-gray-500">Quantity:{props.quantity}</p>
+       
+        <p className="text-sm text-gray-500">Price:{props.price}</p>
+        <p className="text-sm text-gray-500">Seller:{props.name}</p>
         
         
         {/* <p className="text-sm text-gray-500">{props.size}</p>
@@ -38,4 +40,4 @@ const ProductCard = (props: Props) => {
   );
 };
 
-export default ProductCard;
+export default ProductCardBuyer;
