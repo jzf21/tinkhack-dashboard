@@ -64,6 +64,7 @@ const handleSubmit = (event: React.FormEvent) => {
   };
   
  const handleAPICall = (formData: FormData) => {
+  setDisabled(true)
   axios
     .post("/api/posts/inserimage", formData, {
       withCredentials: true,
@@ -72,6 +73,7 @@ const handleSubmit = (event: React.FormEvent) => {
       console.log(response.data);
       setDisabled(false)
       setSucess(true)
+      
     })
     .catch((error) => {
       console.error(error);

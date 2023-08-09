@@ -26,7 +26,7 @@ const DefaultLayout = (props: Props) => {
   return (
     <>
         
-<nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+<nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-black dark:border-gray-700">
   <div className="px-3 py-3 lg:px-5 lg:pl-3">
     <div className="flex items-center justify-between">
       <div className="flex items-center justify-start">
@@ -103,8 +103,8 @@ const DefaultLayout = (props: Props) => {
   </div>
 </nav>
 
-<aside id="logo-sidebar" className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform  bg-white border-r border-gray-200  sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700 ${showForm}`} aria-label="Sidebar">
-   <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
+<aside id="logo-sidebar" className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform  bg-white border-r border-gray-200  sm:translate-x-0 dark:bg-black dark:border-gray-700 ${showForm}`} aria-label="Sidebar">
+   <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-black">
       <ul className="space-y-2 font-medium">
          <li>
             <Link href={"/"}  className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
@@ -116,7 +116,7 @@ const DefaultLayout = (props: Props) => {
             <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                <svg aria-hidden="true" className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
                <span className="flex-1 ml-3 whitespace-nowrap">Products</span>
-               <span className="inline-flex items-center justify-center px-2 ml-3 text-sm font-medium text-gray-800 bg-gray-200 rounded-full dark:bg-gray-700 dark:text-gray-300">Pro</span>
+               <span className="inline-flex items-center justify-center px-2 ml-3 text-sm font-medium text-black bg-gray-200 rounded-full dark:bg-gray-700 dark:text-gray-300">Pro</span>
             </a>
          </li>
          <li>
@@ -167,45 +167,45 @@ const DefaultLayout = (props: Props) => {
       </ul>
    </div>
 </aside>
-<div className='p-4  rounded-lg dark:border-gray-700 mt-14 sm:ml-64'>
+<div className=' p-0 md:p-4 ml-0 rounded-lg dark:border-gray-700 mt-14 sm:ml-64'>
 {props.children}
 </div>
 
 {/* <div className="p-4 sm:ml-64 ">
    <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
       <div className="grid grid-cols-3 gap-4 mb-4">
-         <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
+         <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-black">
             <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
          </div>
-         <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
+         <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-black">
             <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
          </div>
-         <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
+         <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-black">
             <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
          </div>
       </div>
-      <div className="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
+      <div className="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-black">
          <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
       </div>
       <div className="grid grid-cols-2 gap-4 mb-4">
-         <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+         <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-black">
             <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
          </div>
-         <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+         <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-black">
             <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
          </div>
-         <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+         <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-black">
             <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
          </div>
-         <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+         <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-black">
             <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
          </div>
       </div>
-      <div className="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
+      <div className="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-black">
          <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
       </div>
       <div className="grid grid-cols-2 gap-4">
-         <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+         <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-black">
             <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
          </div>
          <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
