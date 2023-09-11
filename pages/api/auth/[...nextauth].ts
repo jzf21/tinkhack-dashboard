@@ -3,6 +3,7 @@ import GoogleProvider from "next-auth/providers/google"
 import { supabase } from '../../../utils/supabase'
 import { pool } from "../supabase"
 
+
 export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
@@ -69,7 +70,7 @@ export const authOptions: NextAuthOptions = {
 
     async session({ session, token }) {
       if(session.user && token.userRole){
-        session.user.role = token.userRole;
+        session.user.image = token.userRole;
       }
 
       
