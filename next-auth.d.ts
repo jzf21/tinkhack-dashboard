@@ -13,8 +13,8 @@ declare module "next-auth/jwt" {
       user : {
         name: string;
         email: string;
-        image: string;
-        role: string;
+        image: string | undefined | null
+    } & DefaultSession["user"]
 
-  }
+ 
 }}
