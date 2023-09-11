@@ -14,7 +14,10 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
+
         token.userRole = "admin";
+        
+      
         return token;
       }
 
@@ -26,6 +29,8 @@ export const authOptions: NextAuthOptions = {
             "SELECT * FROM sellers WHERE email = $1",
             [token.email]
           );
+            
+          
 
           if (rows.length === 0) {
             // Insert a new record into the "sellers" table
@@ -34,6 +39,24 @@ export const authOptions: NextAuthOptions = {
               [token.email, token.name]
             );
           }
+        else{
+          try{
+            const { rows } = await client.query(
+              "SELECT * FROM sellers WHERE email = $1 and role = true",
+              [token.email]
+            );
+            if(rows.length === 0){
+              
+            }
+            else{
+              token.userRole = "seller";
+            }
+          }
+          catch(error){
+            console.log(error);
+          }
+
+        }
         } catch (error) {
           console.error("Error executing query", error);
         } finally {
@@ -45,6 +68,13 @@ export const authOptions: NextAuthOptions = {
     },
 
     async session({ session, token }) {
+      if(session.user && token.userRole){
+        session.user.role = token.userRole;
+      }
+
+      
+      
+      
       
       console.log(session,token);
       return session;
