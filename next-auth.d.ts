@@ -1,4 +1,6 @@
 import "next-auth/jwt"
+import "next-auth"
+import { DefaultSession } from "next-auth";
 
 // Read more at: https://next-auth.js.org/getting-started/typescript#module-augmentation
 export enum Role {
@@ -6,12 +8,7 @@ export enum Role {
   admin = "admin",
 }
 
-declare module "next-auth" {
-  interface Session {
-    /** The user's role. */
-    role?: Role;
-  }
-}
+
 declare module "next-auth/jwt" {
   interface JWT {
     /** The user's role. */
@@ -19,10 +16,21 @@ declare module "next-auth/jwt" {
 
     
   }
-  interface Session extends DefaultSession{
-      user : {
-        role: string | undefined | null
-    } & DefaultSession["user"]
 
+}
+
+declare module "next-auth" {
+  interface Session {
+    /** The user's role. */
+    userRole?: "admin" | "seller";
+    user: {
+      id: string;
+      email: string;
+      name: string;
+      role: string;
+    };
   }
 }
+
+
+

@@ -70,7 +70,8 @@ export const authOptions: NextAuthOptions = {
 
     async session({ session, token }) {
       if(session.user && token.userRole){
-        session.user.image = token.userRole;
+        
+        session.user.role= token.userRole;
       }
 
       

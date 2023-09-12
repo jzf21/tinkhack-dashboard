@@ -11,7 +11,7 @@ const register = (props: Props) => {
   const router = useRouter()
 
   // Check if the session role is "seller" and redirect if necessary
-  if (data?.user?.image === 'seller') {
+  if (data?.user.role === 'seller') {
     router.push('/')
     return null // You can also render a loading state here
   }
