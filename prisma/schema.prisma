@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model category {
+  id         BigInt    @id @default(autoincrement())
+  created_at DateTime? @default(now()) @db.Timestamptz(6)
+  category   String?
+  cat_id     String?   @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model products {
+  id            BigInt    @id @default(autoincrement())
+  created_at    DateTime? @default(now()) @db.Timestamptz(6)
+  title         String?
+  quantity      Int?      @db.SmallInt
+  cat_id        BigInt?
+  seller_id     BigInt?
+  price         Int?      @db.SmallInt
+  size          String?
+  imglink       String?
+  selling_price Int?      @db.SmallInt
+  sellers       sellers?  @relation(fields: [seller_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model sellerdetails {
+  id         BigInt   @id @default(autoincrement())
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  gstin      String?
+  aadhar     String?
+  ifsc       String?
+  seller_id  String?
+  accno      String?
+  pan        String?
+  sellerid   BigInt?
+  companypan String?
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model sellers {
+  id         BigInt     @id @default(autoincrement())
+  created_at DateTime?  @default(now()) @db.Timestamptz(6)
+  email      String?    @unique
+  name       String?
+  role       Boolean?
+  phone_no   Int?       @unique @db.SmallInt
+  products   products[]
+
+  @@index([email], map: "email_id_idx")
+  @@index([email], map: "person_email")
+}

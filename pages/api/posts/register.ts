@@ -46,7 +46,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const insertResult = await client.query(insertQuery, insertValues);
          // Upload the image to Supabase storage
          const insertRole= await client.query('update sellers set role = true where id= $1 RETURNING *',[sellerId]);
-        const { data, error } = await supabase.storage.from('image') // Replace 'YOUR_SUPABASE_STORAGE_BUCKET' with your actual bucket name
+         
+        const { data, error } = await supabase.storage.from('sellerbucket') // Replace 'YOUR_SUPABASE_STORAGE_BUCKET' with your actual bucket name
           .upload(`/${insertResult.rows[0].seller_id}/${insertResult.rows[0].gstin}.png`, Buffer.from(aadhar, 'base64'));
      
 
@@ -62,7 +63,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const updateQuery = 'UPDATE sellerdetails SET pan = $1 WHERE id = $2';
         const updateValues = [imageUrl, insertResult.rows[0].id];
         await client.query(updateQuery, updateValues);
-           const { data:data1, error:error1 } = await supabase.storage.from('image') // Replace 'YOUR_SUPABASE_STORAGE_BUCKET' with your actual bucket name
+           const { data:data1, error:error1 } = await supabase.storage.from('sellerbucket') // Replace 'YOUR_SUPABASE_STORAGE_BUCKET' with your actual bucket name
           .upload(`/${insertResult.rows[0].seller_id}/${insertResult.rows[0].pan}.png`, Buffer.from(pan, 'base64'));
         
           if(error1){
@@ -76,7 +77,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const updateValues1 = [imageUrl1, insertResult.rows[0].id];
         await client.query(updateQuery1, updateValues1);
           
-        const {data:data2,error:error2} = await supabase.storage.from('image') // Replace 'YOUR_SUPABASE_STORAGE_BUCKET' with your actual bucket name
+        const {data:data2,error:error2} = await supabase.storage.from('sellerbucket') // Replace 'YOUR_SUPABASE_STORAGE_BUCKET' with your actual bucket name
           .upload(`/${insertResult.rows[0].seller_id}/${insertResult.rows[0].companypan}`, Buffer.from(companypan, 'base64'));
 
           if(error2){
