@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import AudioRecorder from '../components/Microphone/Microphone';
 import Recorder from '../components/Recorder/Recorder';
+import VoiceRecorder from '../components/Recorder/VoiceTranscriber';
 
 const RecordAudio: React.FC = () => {
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
@@ -36,7 +37,8 @@ const handleRecordingComplete = async (audioBlob: Blob) => {
   return (
     <div>
       <h1>Record Audio Page</h1>
-      <AudioRecorder onRecordingComplete={handleRecordingComplete} />
+      <VoiceRecorder/>
+      {/* <AudioRecorder onRecordingComplete={handleRecordingComplete} /> */}
 
       {audioUrl && (
         <div>
@@ -47,7 +49,7 @@ const handleRecordingComplete = async (audioBlob: Blob) => {
           </audio>
         </div>
       )}
-      <Recorder setSymptoms={setResult}/>
+      {/* <Recorder setSymptoms={setResult}/> */}
       {result}
     </div>
   );

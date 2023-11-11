@@ -1,28 +1,52 @@
 // pages/api/transcribe.ts
 import { NextApiRequest, NextApiResponse } from 'next';
+import { SpeechClient } from '@google-cloud/speech';
+
+// Your Google Cloud project ID
+const projectId = process.env.GOOGLE_CLOUD_PROJECT_ID;
+
+// Create a Google Cloud Speech-to-Text client
+const speechClient = new SpeechClient({
+  projectId,
+});
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const recognition = new (window as any).webkitSpeechRecognition();
-  recognition.continuous = true;
-  recognition.interimResults = false;
-  recognition.lang = 'en-US';
+  try {
+    if (req.method === 'POST') {
+      const { audio } = req.body;
+      console.log('audio');
 
-  const handleSpeechRecognitionResult = (event: any) => {
-    const { transcript } = event.results[0][0];
-    recognition.stop();
-    res.status(200).json({ transcript });
-  };
+      if (!audio) {
+        res.status(400).json({ error: 'Audio data is missing.' });
+        return;
+      }
 
-  const handleSpeechRecognitionEnd = () => {
-    recognition.stop();
-  };
+      const recognitionConfig = {
+        encoding: 'LINEAR16',
+        sampleRateHertz: 16000,
+        languageCode: 'en-US',
+      };
 
-  recognition.addEventListener('result', handleSpeechRecognitionResult);
-  recognition.addEventListener('end', handleSpeechRecognitionEnd);
+      const request = {
+        audio: {
+          content: audio,
+        },
+        config: recognitionConfig,
+      };
 
-  if (req.method === 'POST') {
-    recognition.start();
-  } else {
-    res.status(405).json({ error: 'Method Not Allowed' });
+      // Transcribe the audio
+      const [response] = await speechClient.recognize(request);
+
+      const transcription = response.results
+        .map((result) => result.alternatives[0].transcript)
+        .join('\n');
+
+      res.status(200).json({ transcription });
+    } else {
+      res.status(405).json({ error: 'Method Not Allowed' });
+    }
+  } catch (error) {
+    console.error('Error during transcription:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 };
